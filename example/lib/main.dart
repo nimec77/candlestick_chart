@@ -29,8 +29,9 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.grey,
         body: Center(
-          child: SizedBox(
-            height: 100,
+          child: Container(
+            height: 200,
+            decoration: BoxDecoration(border: Border.all()),
             child: ListView.separated(
               reverse: true,
               scrollDirection: Axis.horizontal,

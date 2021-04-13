@@ -1,3 +1,4 @@
+import 'package:candlestick_chart/candlestick_chart/presentation/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,8 +10,8 @@ abstract class VolumeData with _$VolumeData {
     required final double volume,
     required final double maxVolume,
     required final bool gain,
-    @Default(Colors.green) final Color gainColor,
-    @Default(Colors.red) final Color lossColor,
-    @Default(0.5) final double opacity,
+    @Default(kGainColor) final Color gainColor,
+    @Default(kLossColor) final Color lossColor,
+    @Default(kVolumeOpacity) final double opacity,
   }) = _VolumeData;
 }

@@ -20,9 +20,9 @@ class _$VolumeDataTearOff {
       {required double volume,
       required double maxVolume,
       required bool gain,
-      Color gainColor = Colors.green,
-      Color lossColor = Colors.red,
-      double opacity = 0.5}) {
+      Color gainColor = kGainColor,
+      Color lossColor = kLossColor,
+      double opacity = kVolumeOpacity}) {
     return _VolumeData(
       volume: volume,
       maxVolume: maxVolume,
@@ -180,9 +180,9 @@ class _$_VolumeData implements _VolumeData {
       {required this.volume,
       required this.maxVolume,
       required this.gain,
-      this.gainColor = Colors.green,
-      this.lossColor = Colors.red,
-      this.opacity = 0.5});
+      this.gainColor = kGainColor,
+      this.lossColor = kLossColor,
+      this.opacity = kVolumeOpacity});
 
   @override
   final double volume;
@@ -190,13 +190,13 @@ class _$_VolumeData implements _VolumeData {
   final double maxVolume;
   @override
   final bool gain;
-  @JsonKey(defaultValue: Colors.green)
+  @JsonKey(defaultValue: kGainColor)
   @override
   final Color gainColor;
-  @JsonKey(defaultValue: Colors.red)
+  @JsonKey(defaultValue: kLossColor)
   @override
   final Color lossColor;
-  @JsonKey(defaultValue: 0.5)
+  @JsonKey(defaultValue: kVolumeOpacity)
   @override
   final double opacity;
 

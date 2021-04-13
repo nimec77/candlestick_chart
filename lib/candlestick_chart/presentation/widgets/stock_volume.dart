@@ -8,25 +8,24 @@ class StockVolume extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = volumeData.gain ? volumeData.gainColor : volumeData.lossColor;
     return CustomPaint(
-      painter: _StockVolumePainter(volume: volumeData.volume, maxVolume: volumeData.maxVolume, color: color),
+      painter: _StockVolumePainter(volumeData: volumeData),
     );
   }
 }
 
 class _StockVolumePainter extends CustomPainter {
-  final double volume;
-  final double maxVolume;
-  final Color color;
+  final VolumeData volumeData;
+  final Color _color;
 
-  _StockVolumePainter({required this.volume, required this.maxVolume, required this.color});
+  _StockVolumePainter({required this.volumeData})
+      : _color = volumeData.gain ? volumeData.gainColor : volumeData.lossColor;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = color;
-    final pixelsPerTimeWindow = size.height / maxVolume;
-    final height = volume * pixelsPerTimeWindow;
+    final paint = Paint()..color = _color;
+    final pixelsPerStockOrder = size.height / volumeData.maxVolume;
+    final height = volumeData.volume * pixelsPerStockOrder;
     canvas.drawRect(
       Rect.fromLTWH(
         0,
@@ -44,6 +43,6 @@ class _StockVolumePainter extends CustomPainter {
       return true;
     }
 
-    return oldDelegate.volume != volume || oldDelegate.maxVolume != maxVolume || oldDelegate.color != color;
+    return oldDelegate.volumeData != volumeData;
   }
 }
