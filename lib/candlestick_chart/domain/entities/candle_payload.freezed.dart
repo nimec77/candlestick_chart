@@ -24,7 +24,7 @@ class _$CandlePayloadTearOff {
       required double high,
       required double low,
       required double volume,
-      required Interval interval}) {
+      required StockInterval interval}) {
     return _CandlePayload(
       time: time,
       figi: figi,
@@ -50,7 +50,7 @@ mixin _$CandlePayload {
   double get high => throw _privateConstructorUsedError;
   double get low => throw _privateConstructorUsedError;
   double get volume => throw _privateConstructorUsedError;
-  Interval get interval => throw _privateConstructorUsedError;
+  StockInterval get interval => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CandlePayloadCopyWith<CandlePayload> get copyWith =>
@@ -70,7 +70,7 @@ abstract class $CandlePayloadCopyWith<$Res> {
       double high,
       double low,
       double volume,
-      Interval interval});
+      StockInterval interval});
 }
 
 /// @nodoc
@@ -125,7 +125,7 @@ class _$CandlePayloadCopyWithImpl<$Res>
       interval: interval == freezed
           ? _value.interval
           : interval // ignore: cast_nullable_to_non_nullable
-              as Interval,
+              as StockInterval,
     ));
   }
 }
@@ -145,7 +145,7 @@ abstract class _$CandlePayloadCopyWith<$Res>
       double high,
       double low,
       double volume,
-      Interval interval});
+      StockInterval interval});
 }
 
 /// @nodoc
@@ -202,7 +202,7 @@ class __$CandlePayloadCopyWithImpl<$Res>
       interval: interval == freezed
           ? _value.interval
           : interval // ignore: cast_nullable_to_non_nullable
-              as Interval,
+              as StockInterval,
     ));
   }
 }
@@ -235,7 +235,7 @@ class _$_CandlePayload extends _CandlePayload {
   @override
   final double volume;
   @override
-  final Interval interval;
+  final StockInterval interval;
 
   @override
   String toString() {
@@ -292,7 +292,7 @@ abstract class _CandlePayload extends CandlePayload {
       required double high,
       required double low,
       required double volume,
-      required Interval interval}) = _$_CandlePayload;
+      required StockInterval interval}) = _$_CandlePayload;
   const _CandlePayload._() : super._();
 
   @override
@@ -310,7 +310,7 @@ abstract class _CandlePayload extends CandlePayload {
   @override
   double get volume => throw _privateConstructorUsedError;
   @override
-  Interval get interval => throw _privateConstructorUsedError;
+  StockInterval get interval => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CandlePayloadCopyWith<_CandlePayload> get copyWith =>
