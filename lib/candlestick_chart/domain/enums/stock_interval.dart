@@ -1,4 +1,4 @@
-enum Interval {
+enum StockInterval {
   oneMin,
   theeMin,
   fiveMin,

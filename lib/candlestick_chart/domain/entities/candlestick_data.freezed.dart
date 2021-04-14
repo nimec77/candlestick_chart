@@ -238,7 +238,7 @@ class __$CandlestickDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_CandlestickData extends _CandlestickData {
+class _$_CandlestickData implements _CandlestickData {
   const _$_CandlestickData(
       {required this.open,
       required this.close,
@@ -249,8 +249,7 @@ class _$_CandlestickData extends _CandlestickData {
       required this.volume,
       required this.maxVolume,
       this.gainColor = kGainColor,
-      this.lossColor = kLossColor})
-      : super._();
+      this.lossColor = kLossColor});
 
   @override
   final double open;
@@ -330,7 +329,7 @@ class _$_CandlestickData extends _CandlestickData {
       __$CandlestickDataCopyWithImpl<_CandlestickData>(this, _$identity);
 }
 
-abstract class _CandlestickData extends CandlestickData {
+abstract class _CandlestickData implements CandlestickData {
   const factory _CandlestickData(
       {required double open,
       required double close,
@@ -342,7 +341,6 @@ abstract class _CandlestickData extends CandlestickData {
       required double maxVolume,
       Color gainColor,
       Color lossColor}) = _$_CandlestickData;
-  const _CandlestickData._() : super._();
 
   @override
   double get open => throw _privateConstructorUsedError;

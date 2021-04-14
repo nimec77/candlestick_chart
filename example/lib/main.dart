@@ -1,15 +1,39 @@
-import 'dart:math';
 
 import 'package:candlestick_chart/candlestick_chart.dart';
-import 'package:candlestick_chart/candlestick_chart/domain/entities/volume_data.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  const maxVolume = 20 * 1000.0;
+  const minLow = 76100.0;
+  const maxHigh = 78500.0;
+  final candlestickRepository = CandlestickRepositoryImp(
+    maxVolume: maxVolume,
+    minLow: minLow,
+    maxHigh: maxHigh,
+    stockInterval: StockInterval.oneMin,
+  );
+  final candlePayloads = List.generate(500, (index) {
+    final candlestickPayload = candlestickRepository.iterator.current;
+    candlestickRepository.iterator.moveNext();
+    return candlestickPayload;
+  });
+  runApp(MyApp(candlePayloads: candlePayloads, maxVolume: maxVolume, minLow: minLow, maxHigh: maxHigh));
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final List<CandlePayload> candlePayloads;
+  final double maxVolume;
+  final double minLow;
+  final double maxHigh;
+
+  const MyApp({
+    Key? key,
+    required this.candlePayloads,
+    required this.maxVolume,
+    required this.minLow,
+    required this.maxHigh,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,15 +41,27 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: MyHomePage(candlePayloads: candlePayloads, maxVolume: maxVolume, minLow: minLow, maxHigh: maxHigh),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
+  final List<CandlePayload> candlePayloads;
+  final double maxVolume;
+  final double minLow;
+  final double maxHigh;
+
+  const MyHomePage({
+    Key? key,
+    required this.candlePayloads,
+    required this.maxVolume,
+    required this.minLow,
+    required this.maxHigh,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final random = Random();
     return Scaffold(
         backgroundColor: Colors.grey,
         body: Center(
@@ -37,15 +73,10 @@ class MyHomePage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: 500,
               itemBuilder: (context, index) {
+                final volumeData = candlePayloads[index].toVolumeData(maxVolume);
                 return SizedBox(
                   width: 5,
-                  child: StockVolume(
-                    volumeData: VolumeData(
-                      volume: random.nextDouble() * 100,
-                      maxVolume: 100,
-                      gain: random.nextBool(),
-                    ),
-                  ),
+                  child: StockVolume(volumeData: volumeData),
                 );
               },
               separatorBuilder: (context, index) => const SizedBox(width: 1),
