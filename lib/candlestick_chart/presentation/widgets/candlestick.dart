@@ -25,19 +25,31 @@ class _CandlestickCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = _color;
-    final pixelsPerDollar = (candlestickData.maxHigh - candlestickData.minLow) / size.height;
+    final pixelsPerDollar = size.height / (candlestickData.maxHigh - candlestickData.minLow);
     final wickHigh = (candlestickData.high - candlestickData.minLow) * pixelsPerDollar;
     final wickLow = (candlestickData.low - candlestickData.minLow) * pixelsPerDollar;
     final candleHigh = (candlestickData.open - candlestickData.minLow) * pixelsPerDollar;
     final candleLow = (candlestickData.close - candlestickData.minLow) * pixelsPerDollar;
     final wickWidth = size.width * kWickProportion;
 
+    // draw wick
     canvas.drawRect(
       Rect.fromLTRB(
-        wickWidth / 2,
+        (size.width - wickWidth) / 2,
         size.height - wickHigh,
-        size.width - wickWidth / 2,
+        (size.width + wickWidth) / 2,
         size.height - wickLow,
+      ),
+      paint,
+    );
+
+    // draw candle body
+    canvas.drawRect(
+      Rect.fromLTRB(
+        0,
+        size.height - candleHigh,
+        size.width,
+        size.height - candleLow,
       ),
       paint,
     );

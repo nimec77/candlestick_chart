@@ -34,27 +34,38 @@ class _CandlestickIterator implements Iterator<CandlePayload> {
 
   _CandlestickIterator(this.maxVolume, this.minLow, this.maxHigh, this.stockInterval) {
     _size = maxHigh - minLow;
-    _open = random.nextDouble() * _size + minLow;
+    _open = minLow + random.nextDouble() * _size;
   }
 
   @override
   CandlePayload get current {
-    final close = _randomValue;
+    final close = minLow + random.nextDouble() * _size;
+    double high, low;
+    if (close > _open) {
+      high = _getHigh(close);
+      low = _getLow(_open);
+    } else {
+      high = _getHigh(_open);
+      low = _getLow(close);
+    }
     final candlePayload = CandlePayload(
       time: DateTime.now().toString(),
       figi: 'TEST',
       open: _open,
       close: close,
-      high: _randomValue,
-      low: 0,
-      volume: 0,
+      high: high,
+      low: low,
+      volume: (random.nextDouble() * maxVolume).ceilToDouble(),
       interval: stockInterval,
     );
     _open = close;
-    throw UnimplementedError();
+
+    return candlePayload;
   }
 
-  double get _randomValue => random.nextDouble() * _size + minLow;
+  double _getHigh(double candleHigh) => candleHigh + random.nextDouble() * (maxHigh - candleHigh) / 2;
+
+  double _getLow(double candleLow) => candleLow - random.nextDouble() * (candleLow - minLow) / 2;
 
   @override
   bool moveNext() {

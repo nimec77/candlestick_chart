@@ -1,5 +1,5 @@
-
 import 'package:candlestick_chart/candlestick_chart.dart';
+import 'package:candlestick_chart/candlestick_chart/presentation/widgets/candlestick.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -63,23 +63,37 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey,
+        // backgroundColor: Colors.grey,
         body: Center(
-          child: Container(
-            height: 200,
-            decoration: BoxDecoration(border: Border.all()),
-            child: ListView.separated(
-              reverse: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: 500,
-              itemBuilder: (context, index) {
-                final volumeData = candlePayloads[index].toVolumeData(maxVolume);
-                return SizedBox(
-                  width: 5,
-                  child: StockVolume(volumeData: volumeData),
-                );
-              },
-              separatorBuilder: (context, index) => const SizedBox(width: 1),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Container(
+              height: 300,
+              decoration: BoxDecoration(border: Border.all()),
+              child: ListView.separated(
+                reverse: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: 500,
+                itemBuilder: (context, index) {
+                  final volumeData = candlePayloads[index].toVolumeData(maxVolume);
+                  final candlestickData = candlePayloads[index].toCandlestickData(minLow, maxHigh, maxVolume);
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 249,
+                        width: 5,
+                        child: Candlestick(candlestickData: candlestickData),
+                      ),
+                      SizedBox(
+                        height: 49,
+                        width: 5,
+                        child: StockVolume(volumeData: volumeData),
+                      ),
+                    ],
+                  );
+                },
+                separatorBuilder: (context, index) => const SizedBox(width: 1),
+              ),
             ),
           ),
         ));

@@ -19,13 +19,16 @@ class _StockVolumePainter extends CustomPainter {
   final Color _color;
 
   _StockVolumePainter({required this.volumeData})
-      : _color = volumeData.gain ? volumeData.gainColor : volumeData.lossColor;
+      : _color = volumeData.gain
+            ? volumeData.gainColor.withOpacity(volumeData.opacity)
+            : volumeData.lossColor.withOpacity(volumeData.opacity);
 
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = _color;
     final pixelsPerStockOrder = size.height / volumeData.maxVolume;
     final height = volumeData.volume * pixelsPerStockOrder;
+
     canvas.drawRect(
       Rect.fromLTWH(
         0,
