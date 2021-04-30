@@ -57,4 +57,17 @@ class CandlePayload {
 
   @override
   int get hashCode => hashValues(time, figi, open, close, high, low, volume, interval);
+
+  @override
+  String toString() => ''
+      'CandlePayload('
+      'time: $time, '
+      'figi: $figi, '
+      'open: $open, '
+      'close: $close, '
+      'high: $high, '
+      'low: $low, '
+      'volume: $volume, '
+      'interval: $interval '
+      ')';
 }

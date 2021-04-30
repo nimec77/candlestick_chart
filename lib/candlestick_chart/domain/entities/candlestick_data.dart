@@ -37,10 +37,25 @@ class CandlestickData {
             other.low == low &&
             other.minLow == minLow &&
             other.volume == volume &&
+            other.maxVolume == maxVolume &&
             other.gainColor == gainColor &&
             other.lossColor == lossColor;
   }
 
   @override
   int get hashCode => hashValues(open, close, high, maxHigh, low, minLow, volume, maxVolume, gainColor, lossColor);
+
+  @override
+  String toString() => 'CandlestickData('
+      'open: $open, '
+      'close: $close, '
+      'high: $high, '
+      'maxHigh: $maxHigh, '
+      'low: $low, '
+      'minLow: $minLow,  '
+      'volume: $volume, '
+      'maxVolume: $maxVolume, '
+      'gainColor: $gainColor, '
+      'lossColor: $lossColor, '
+      ')';
 }

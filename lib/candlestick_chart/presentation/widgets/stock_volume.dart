@@ -42,10 +42,14 @@ class _StockVolumePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    if (oldDelegate is! _StockVolumePainter) {
-      return true;
-    }
-
-    return oldDelegate.volumeData != volumeData;
+    return oldDelegate != this;
   }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || other is _StockVolumePainter && other.volumeData == volumeData;
+  }
+
+  @override
+  int get hashCode => volumeData.hashCode;
 }

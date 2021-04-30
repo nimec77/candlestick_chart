@@ -1,6 +1,6 @@
 import 'package:candlestick_chart/candlestick_chart/domain/entities/candlestick_data.dart';
 import 'package:candlestick_chart/candlestick_chart/presentation/constants.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Candlestick extends StatelessWidget {
   final CandlestickData candlestickData;
@@ -57,10 +57,14 @@ class _CandlestickCustomPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    if (oldDelegate is! _CandlestickCustomPainter) {
-      return true;
-    }
-
-    return oldDelegate.candlestickData != candlestickData;
+    return oldDelegate != this;
   }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || other is _CandlestickCustomPainter && other.candlestickData == candlestickData;
+  }
+
+  @override
+  int get hashCode => candlestickData.hashCode;
 }
